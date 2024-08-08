@@ -96,12 +96,74 @@ SELECT
 FROM classes
 INNER JOIN teachers on classes.teacher_id = teachers.id
 
+CREATE TABLE students (
+  id bigint PRIMARY KEY AUTO_INCREMENT,
+  class_id bigint not null,
+  name varchar(191) not null,
+  grade varchar(191) not null
+);
+
+# clear all data in table
+truncate students;
+
+DROP TABLE students;
+
+# ALTER untuk merubah table
+ALTER TABLE students
+ADD COLUMN class_id bigint not null,
+ADD CONSTRAINT FOREIGN KEY (class_id) REFERENCES classes (id) ON DELETE CASCADE;
+
+# Many-To-Many perlu yang namanya pivot table atau table  perantara yang menghubungnya
+CREATE TABLE student_has_teachers (
+    student_id bigint not null,
+    teacher_id bigint not null,
+    CONSTRAINT
+        PRIMARY KEY (student_id) REFERENCES students (id) ON DELETE CASCADE
+    CONSTRAINT
+        PRIMARY KEY (teacher_id) REFERENCES teachers (id) ON DELETE CASCADE
+);
+
+INSERT INTO teachers (name) VALUES ('Dony')
+INSERT INTO students (class_id, name) VALUES
+(3, 'Bayona', 'B'),
+(4, 'Goyan', 'C');
+INSERT INTO classes (teacher_id, name) VALUES
+(1, 'Ilmu Astrologi');
+
+
+
+SELECT 
+    students.name AS nama_mahasiswa,
+    teachers.name AS nama_guru,
+    classes.name AS guru_kelas
+FROM teachers
+INNER JOIN student_has_teachers ON teachers.id = student_has_teachers.student_id
+INNER JOIN students ON student_has_teachers.student_id = students.id
+INNER JOIN classes ON teachers.id = classes.teacher_id;
+
+
+
+
+SELECT
+    classes.name as nama_kelas,
+    teachers.name as nama_guru
+FROM classes
+INNER JOIN teachers on classes.teacher_id = teachers.id
 
 
 
 
 
 
+
+SELECT
+    students.name as nama_mahasiswa
+    teachers.name as nama_guru
+    classes.name as nama_kelas
+FROM students
+INNER JOIN students_has_teachers on teacher_id = student_has_teachers.teacher_id
+INNER JOIN students on teacher.class_id = student_has_teachers.teacher_id
+INNER JOIN classes on classes.student_id
 
 
 
