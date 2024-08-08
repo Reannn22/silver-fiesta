@@ -52,10 +52,49 @@ UPDATE students SET grade = 'D' WHERE grade = 'C';
 # jika kita ingin menghapus data yang kita pilih maka gunakan where
 DELETE FROM students where id = 1;
 
+CREATE TABLE teachers (
+    id bigint PRIMARY KEY AUTO_INCREMENT,
+    name varchar(191) not null
+);
+
+# column teachers_id dalam table classes merupakan foreign key atau penghubung antara table,
+# teachers dan column dimana 1 kelas itu dimiliki oleh 1 guru (one to one) atau
+# 1 guru kita punya banyak kelas (One to Many) cuku dengan
+# Cara mendefinisikan foreign key
+# CONSTRAINT (column) FOREIGN KEY <table> (column) (option)
+CREATE TABLE classes (
+    id bigint PRIMARY KEY AUTO_INCREMENT,
+    teacher_id bigint not null,
+    name varchar(191) not null,
+
+    CONSTRAINT
+        FOREIGN KEY (teacher_id)
+         REFERENCES teachers (id) ON DELETE CASCADE
+)
 
 
+INSERT INTO teachers (name) VALUE ('Roy');
 
+# Ketika kita mau menambahkan data relational kita perlu tahu dulu id dari patrent table
+# dalam kasus ini table adalah teacher, dimana kita mau menambahkan kelas
+# terhadap teacher dengan nama Roy dimana roy memiliki 2 kelas yaitu Sistem Informasi dan
+# Teknik Informasi
+INSERT INTO classes (teacher_id,name) VALUES
+(1, 'Sistem Informasi'),
+(1, 'Teknik Informasi');
 
+# dalam proses pengambilan data 2 atau lebih table kita akan melakukan pemanggilam
+# column dengan nama <table>.<column>. Jika data yang ingin kita tampilkan kita ganti nama,
+# column gunakan AS sebagai alias atau pengganti sementara dari nama column
+# Dalam kasus ini kita mencoba mengambil data dari table classes dan ingin mengambil data
+# Guru berdasarkan teacher.id yang ada di table classess dengan menggunakan inner join
+# dimana inner join membutuhkan foreign key sebagai kunci asing atau sebagai izin untuk
+# mengakses table yang kita mau dalam hal ini table teachers nyang akan kita ambil datanya
+SELECT
+    classes.name as nama_kelas,
+    teachers.name as nama_guru
+FROM classes
+INNER JOIN teachers on classes.teacher_id = teachers.id
 
 
 
