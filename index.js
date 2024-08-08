@@ -172,7 +172,7 @@ for (let i = 0; i < x; i++) {
     console.log(space.repeat(x-i) + str.repeat(i));
 }
 
-//gabung segitiga kiri dan segitiga kanan
+//gabungan segitiga kiri dan segitiga kanan
 
 for (let i = 0; i < x; i++) {
     let str = "* ";
@@ -181,7 +181,7 @@ for (let i = 0; i < x; i++) {
     let segitigakiri = space.repeat(x - i - 1) + str.repeat(i + 1); //=> Segitiga kiri
     let segitigakanan = str.repeat(i + 1); //=> Segitiga kanan
     
-    console.log(segitigakiri + segitigakanan); //=> Gabungkan segitiga kiri dan kanan
+    console.log(segitigakiri + segitigakanan); //=> output gabungan segitiga kiri dan kanan
 }
 
 /**
@@ -197,12 +197,237 @@ if (isloggedin) { // => untuk tipe data boolean kita hanya cukup masukan kondisi
     console.log("Harap Login");
 }
 
-const baju = "putih";
+const baju = "";
     
 if (baju == "putih"){ // => kalau tipe datanya bukan boolean kita harus pakai ekspresi == atau =/=
     console.log("baju bersih");
 }else if (baju == "merah") {
     console.log("baju warna merah");
-} else {
+} else if (baju == "hitam") {
+    console.log("baju hitam");
+}   else {
     console.log("baju kotor");
 }
+
+/**
+ * 
+ * ini merupakan declaration dari sebuah function sederhana
+ * decleration function di tulis dengan keywords function namaFunction()
+ * jika function tidsk memiliki keyword return dia merupakan void function
+ * yang berarti function tersebut tidak mengembalikan nilai apapun ketika digunakan
+ * age = 23 merupakan iniliazation parameter dengan nilai awal atau default value,
+ * ketika kita melakukan pemanggilan function tanpa mengirim parameter age, maka secara default
+ * age itu bernilai 23 dan jika kita memasukan nilai parameter ke 2 nilai age akan sesuai berdasarkan
+ * parameter kedua yang dikirim dari pemanggilan function
+ * 
+ * 
+ * @return String
+*/
+
+function greet (name, age = 23) {
+    // penggunaan string literal atau ' ketika ingin menggunakan variabel/parameter harus dengan${}
+   return `hello, ${name}. My age is ${age} yo`;
+}
+
+const greeting = greet("akbar", 24); // => jika function memiliki keywords return didalamnya bisa menggunakan variable
+
+console.log(greeting);
+
+console.log(greet("akbar")); // => function bisa digunakan langsung tanpa variable seperti contoh berikut
+
+/**
+ * * perkalian
+ * / pembagian
+ * + penjumlahan
+ * - pengurangan
+ * 
+ * @param {*} a 
+ * @param {*} b 
+ * @returns 
+ */
+function add(a, b) {
+    if (a > 2) {
+        return a * b;
+    }
+    return a + b;
+}
+
+console.log(add(5, 3)); // => Output selalu a + b dalam kasus ini argument nya bernilai 5 dan 3 dan hasilnya 8
+
+function fizzbuzz(number) {
+    if (number % 2 == 0) {
+        return "fizz";
+    }
+
+    if (number % 3 == 0) {
+        return "buzz";
+    }
+
+    if (number % 5 == 0) {
+        return "fizzbuzz";
+    }
+
+    return "failed";
+}
+console.log(fizzbuzz(2)); // => output fizz
+console.log(fizzbuzz(3)); // => output buzz
+console.log(fizzbuzz(5)); // => output fizzbuzz
+console.log(fizzbuzz(7)); // => output failed
+
+// anonymous function
+const greetanon = function(name){
+    return `hello, ${name} from anonymous function`;
+}
+
+console.log(greetanon("akbar"));
+
+// arrow function
+const greatarrow = (name) => `hello, ${name} from Arrow function`;
+
+console.log(greatarrow("akbar"));
+
+/**
+ * class itu didefinisikan dengan keyword class
+ * class juga memiliki constructor dimana cinstructor diakses di awal ketika
+ * kita melakukan pembuatan object baru dari class dengan keyword new car ("toyota", "camry" 2020)
+ * pada dalam constructor kita menggunakan keyword this. untuk mendefinisikan sebuah property,
+ * didalam object. Mirip dengan tipe data object lainnya class juga punya properti
+ */
+class car {
+    constructor(name, brand, year) {
+      this._name = name;
+      this._brand = brand;
+      this._year = year;
+    }
+
+    information() {
+        return `${this._name} have brand from ${this._brand} and build in ${this._year}`;
+    }
+
+// ini adalah setter untuk merubah nilai dari sebuah properti
+    setname(name) {
+        this._name = name;
+    }
+
+    // ini adalah getter untuk mengambil nilai dari sebuah properti
+    getname() {
+        return this.name;
+    }
+
+    //ini merupakan contoh penggunakan setters dengan keywords set
+    set name(value) {
+        if (value !== " ") {
+            this._name = value;
+        } else {
+            console.log("the value must be empty string");
+        }
+    }
+
+    // ini merupakan contoh penggunaan getters dengan keywords get
+    get name() {
+    return this._name;
+    }
+}
+
+const Car = new car("toyota", "camry", 2020);
+console.log(Car.information());
+//Car.setname ("daihatsu");
+Car.name = "daihatsu"; // menggunakan setter untuk merubah data dari poroperty yang ada di class
+console.log(Car.information());
+console.log(Car.name);
+
+
+class animal {
+    constructor(name) {
+        this.name = name;
+    }
+
+    speak(){
+        console.log(`${this.name} makes a sound.`);
+    }
+}
+
+/**
+ * Dog merupakan sebuah children class yang mewarosi semua yang ada di dalam kelas animal
+ * baik itu property maupun method
+ */
+class Dog extends animal { // children
+    speak() {
+    console.log("what the dog do'in;");
+    }
+}
+
+const dog = new Dog("moly"); //parent
+dog.speak();
+
+/**
+ * keywords super digunakan untuk mengakses isi dari parent class
+ */
+class Cat extends animal {
+    constructor(name,color){
+        super(name)
+        this.color = color;
+    }
+
+    speak(){
+        super.speak();
+        console.log(`${this.name} meows.`);
+        console.log(`${this.color} color.`);
+    }
+}
+
+const cat = new Cat("Whisker", "Gray")
+cat.speak();
+
+
+
+class Methotil {
+    static add(a, b) {
+        return a + b;
+    }
+
+    static multiply(a, b) {
+        return a * b;
+    }
+}
+
+console.log(Methotil.add(1, 2)); // output 3
+console.log(Methotil.multiply(5, 3)); // output 15
+
+/**
+ * 
+ * naming comprehension class biasanya menggunakan pascalcase atau sebagai contoh loandiburstment
+ * naming comprehensipon variable biasanya itu camelcase atau variablename
+ * naming comprehension function buasanya itu camel case atau variablename
+ * 
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

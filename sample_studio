@@ -1,0 +1,79 @@
+# ini untuk melihat database
+CREATE DATABASE sample_database;
+
+# ini untuk menghapus database
+DROP DATABASE sample_database;
+
+
+# PRIMARY KEY membuat identitas atau nilai dari column yang diatur menjadi unique
+# AUTO_INCREMENT membuat id ketika ada data baru dia akan bertambah 1 karena dia integer
+# contoh:
+# data pertama dengan id 1. lalu kita membuat record (Data) baru maka data baru akan,
+# memiliki id 2 karena menggunakan KEYWORDS AUTO_INCREMENT
+#
+# varchar merupakan tipe data string saat kita menggunakan varchar kita harus,
+# mendefdinisikan berapa panjang dari varchart tersebut,
+# sebagai contoh jika kita membuat varchar dengan panjang 3 maka kita tidak boleh,
+# memasukkan huruf atau karakter lebih dari 3 dan di definisikan varchar(3)
+# dan keywords not null merupakan flagging atau tanda bahwa column tersebut tidak boleh kosong.
+#
+# Naming Conversion table biasanya menggunakan plural atau jamak sebagai contoh students bukan student
+# Naming Conversion colomn harus snake_case sebagai contoh student_name
+
+CREATE TABLE students (
+  id bigint PRIMARY KEY AUTO_INCREMENT,
+  name varchar(191) not null,
+  grade varchar(191) not null
+);
+
+# Kalau Values itu kalian bisa melakukan penambahan banyak sekaligus
+# Kalau value kalian hanya bisa menambahkan 1 record saja
+INSERT INTO students (name,grade) VALUES
+('Mohammad Akbar', 'B'),
+('Rocky', 'C');
+
+# * ini artinya kita memilih semua colomn untuk ditampilkan
+SELECT * FROM students;
+
+# WHERE keyword digunakan untuk memulai filter
+# dalam kasus ini kita ingin mencari students dengan grade C
+SELECT * FROM students WHERE grade ='C';
+
+# * kita ganti menjadi nama column/field yang artinya kita hanya ingin menampilkan
+# nama dari students
+SELECT name FROM students;
+
+# kalau kita tidak menggunakan keywords where maka kita akan melakukan update seluruh data
+# jika kita menggunakan where atau kondisi kita akan merubah data yang akan kita pilih saja
+UPDATE students SET grade = 'D' WHERE grade = 'C';
+
+# sama dengan update jika kita tidak menggunakan kondisi atau where akan menghapus
+# semua data
+# jika kita ingin menghapus data yang kita pilih maka gunakan where
+DELETE FROM students where id = 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
